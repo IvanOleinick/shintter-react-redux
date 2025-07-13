@@ -1,10 +1,10 @@
 import Content from "./Content.jsx";
 import Sidebar from "./Sidebar.jsx";
 
-const Body = ({user, stats, changeAvatar}) => {
+const Body = () => {
     return (
         <div className={'body'}>
-            <Sidebar changeAvatar={changeAvatar} user={user} stats={stats}/>
+            <Sidebar/>
             <Content/>
         </div>
     );

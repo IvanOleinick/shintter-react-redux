@@ -2,6 +2,7 @@ import './App.css'
 import Navigation from "./components/Navigation.jsx";
 import Body from "./components/Body.jsx";
 import {useState} from "react";
+import {ShmitterContext} from "./utils/context.js";
 
 function App() {
     const [user, setUser] = useState({
@@ -20,8 +21,10 @@ function App() {
 
     return (
         <div className={'app'}>
-            <Navigation changeAvatar={changeAvatar} user={user}/>
-            <Body changeAvatar={changeAvatar} user={user} stats={stats}/>
+            <ShmitterContext value={{user, stats, changeAvatar}}>
+                <Navigation/>
+                <Body/>
+            </ShmitterContext>
         </div>
     )
 }

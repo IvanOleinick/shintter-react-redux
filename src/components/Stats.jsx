@@ -1,11 +1,15 @@
 import Avatar from "./Avatar.jsx";
+import {useContext} from "react";
+import {ShmitterContext} from "../utils/context.js";
 
-const Stats = ({user, stats, changeAvatar}) => {
+const Stats = () => {
+    const {user, stats} = useContext(ShmitterContext);
+
     return (
         <div className={'user-stats'}>
             <div>
-                <Avatar changeAvatar={changeAvatar} user={user}/>
-                { user.name}
+                <Avatar/>
+                {user.name}
             </div>
             <div className={'stats'}>
                 <div>Followers: {stats.followers}</div>

@@ -1,4 +1,9 @@
-const Avatar = ({user, size, changeAvatar}) => {
+import {useContext} from "react";
+import {ShmitterContext} from "../utils/context.js";
+
+const Avatar = ({size}) => {
+    const {user, changeAvatar} = useContext(ShmitterContext);
+
     return (
         <img
             onClick={() => {
