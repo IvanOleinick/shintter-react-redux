@@ -3,8 +3,8 @@ import {rootReducer} from "../reducers/rootReducer.js";
 
 const initialState = {
     user: {
-        name: 'Monster',
-        avatar: 'https://gravatar.com/avatar/000?d=monsterid'
+        name: 'Boss',
+        avatar: 'https://gravatar.com/avatar/000?d=mp'
     },
     stats: {
         followers: 0,
