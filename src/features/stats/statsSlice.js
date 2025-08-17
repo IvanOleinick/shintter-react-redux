@@ -7,10 +7,12 @@ const statsSlice = createSlice({
         following: 0
     },
     reducers: {
-        changeStats: (state, action) => {
-            const res = state[action.payload.statsType] + action.payload.sum;
-            state[action.payload.statsType] = res >= 0 ? res : 0;
-
+        changeStats: {
+            reducer: (state, action) => {
+                const res = state[action.payload.statsType] + action.payload.sum;
+                state[action.payload.statsType] = res >= 0 ? res : 0;
+            },
+            prepare:(statsType, sum) => ({payload: {statsType, sum}}),
         }
     }
 })
