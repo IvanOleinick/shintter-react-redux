@@ -1,10 +1,11 @@
-import Avatar from "./Avatar.jsx";
+import Avatar from "./Avatar";
 import {useDispatch, useSelector} from "react-redux";
 import {changeFollowers, changeFollowing} from "../features/stats/statsSlice.js";
+import {RootState} from "../app/store";
 
 const Stats = () => {
-    const {followers, following} = useSelector(state => state.stats);
-    const {name} = useSelector(state => state.user);
+    const {followers, following} = useSelector((state:RootState) => state.stats);
+    const {name} = useSelector((state:RootState) => state.user);
     const dispatch = useDispatch();
 
     return (

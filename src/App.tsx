@@ -1,6 +1,6 @@
 import './App.css'
-import Navigation from "./components/Navigation.jsx";
-import Body from "./components/Body.jsx";
+import Navigation from "./components/Navigation.tsx";
+import Body from "./components/Body.tsx";
 
 function App() {
 
