@@ -1,27 +1,33 @@
-import {api_key, base_url} from "../../utils/constants.ts";
-import {setMessage} from "../message/messageSlice.ts";
-import {setWeather} from "../weather/weatherSlice.ts";
-import type {AppDispatch} from "../../app/store.ts";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import type { WeatherInfo } from "../../utils/types";
+import { base_url, api_key } from "../../utils/constants.ts";
 
+export const fetchWeather = createAsyncThunk<WeatherInfo, string>(
+    "weather/fetchByCity",
+    async (city: string) => {
+        if (!city?.trim()) {
+            throw new Error("City is required");
+        }
 
-export const fetchWeather = (city:string) => {
-    return (dispatch:AppDispatch) => {
-        dispatch(setMessage("Pending"));
+        const response = await fetch(
+            `${base_url}?q=${city}&appid=${api_key}&units=metric`
+        );
 
-        fetch(`${base_url}?q=${city}&appid=${api_key}&units=metric`)
-            .then((res) => res.json())
-            .then((data) => {
-                dispatch(
-                    setWeather({
-                        country: data.sys.country,
-                        city: data.name,
-                        temp: data.main.temp,
-                        pressure: data.main.pressure,
-                        sunset: new Date(data.sys.sunset * 1000).toLocaleString(),
-                    })
-                );
-                dispatch(setMessage(""));
-            })
-            .catch(() => dispatch(setMessage("Enter correct city name")));
-    };
-};
+        if (response.status === 404) {
+            throw new Error("Enter correct city name");
+        }
+        if (!response.ok) {
+            throw new Error("Something went wrong");
+        }
+
+        const data = await response.json();
+
+        return {
+            country: data.sys.country,
+            city: data.name,
+            temp: data.main.temp,
+            pressure: data.main.pressure,
+            sunset: new Date(data.sys.sunset * 1000).toLocaleString(),
+        };
+    }
+);
